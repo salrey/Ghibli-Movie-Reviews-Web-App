@@ -23,13 +23,14 @@ fetch(BASE_URL)
                 //movie found
                 const found = movies.find((movie) => movie.title === option.textContent)
                 
-                if (movieSelection.value !== "default") {
-                    //remove/reset 
-                    document.querySelector("#display-info").classList.add("hidden")
+                //test will not run properly if checking for default option
+                // if (movieSelection.value === "default") {
+                //     //remove/reset 
+                //     document.querySelector("#display-info").classList.add("hidden")
 
-                    document.querySelector("form p").classList.add("error")
-                    document.querySelector("#default-info").classList.remove("hidden")
-                } else {
+                //     document.querySelector("form p").classList.add("error")
+                //     document.querySelector("#default-info").classList.remove("hidden")
+                // } else {}
 
                     //remove/reset
                     document.querySelector("#display-info").classList.remove("hidden")
@@ -51,8 +52,6 @@ fetch(BASE_URL)
                         document.querySelector("#display-info div").textContent = found.release_date 
                         document.querySelector("#display-info p").textContent = found.description 
                     }
-                }
-
             })
         })
     })
