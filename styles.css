@@ -1,24 +1,34 @@
 body {
     background-color: lavender;
     font-family: monospace;
+    width: 75%;
+    margin: auto;
 }
 
 header {
     background-color: skyblue;
     text-align: right;
-    width: 75%;
-    margin: auto;
 }
 
 header h1 {
     padding-top: 20px;
-    padding-right: 100px
+    padding-right: 100px; 
 }
 
 img {
+    display: flex;  
     width: 50%;
-    display: flex;
 }
+
+select {
+    margin-top: 20px;
+}
+
+footer {
+    background-color: skyblue;
+    text-align: center;
+}
+
 
 .error {
     background-color: red;
