@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ghibli Review App</title>
+    <title>Ghibli Movie Reviews</title>
     <link rel="shortcut icon" href="./images/ghibli-icon.png" type="image/x-icon" />
     <link href="./styles.css" rel="stylesheet"/>
     <script defer src="./main.js"></script>
@@ -15,19 +15,25 @@
         <img src="./images/ghibli-logo.png" alt="studio ghibli logo"/>
     </header>
     <form>
-        <label>
-            Studio Ghibli Films 
-            <select id="film-selection">
-                <option value="default">-------Select a Film-------</option>
+        <label> 
+            <select id="movie-selection">
+                <option value="default">-------Select a Movie-------</option>
             </select>
         </label>
+        <h3>Movie Description</h3>
+        <p>Select a movie to view description</p>
+        <section id="display-info">
+
+        </section>
         <label>
-            Add Your Review
-            <input type="text" name="film-review" id="film-review" placeholder="Write a review here..."/>
+            How was the movie?
+            <input type="text" name="movie-review" id="movie-review" placeholder="Write your review here..."/>
             <input class= "button" type="submit" value="+"/>
         </label>
     </form>
-    <section id="display-info">
+    <section id="list-reviews">
+        <h3>Ghibli Studio Reviews</h3>
+        <p>No reviews have been added</p>
         <ul>
 
         </ul>
