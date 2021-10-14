@@ -4,7 +4,20 @@ body {
 }
 
 header {
-    
+    background-color: skyblue;
+    text-align: right;
+    width: 75%;
+    margin: auto;
+}
+
+header h1 {
+    padding-top: 20px;
+    padding-right: 100px
+}
+
+img {
+    width: 50%;
+    display: flex;
 }
 
 .error {
