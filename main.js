@@ -18,11 +18,10 @@ fetch(BASE_URL)
         //Add event when an option is selected 
         const options = document.querySelectorAll("option")
         options.forEach((option) => {
-            option.addEventListener("click", (event) => {
+            option.addEventListener("click", () => {
                 
                 //movie found
                 const found = movies.find((movie) => movie.title === option.textContent)
-                
                 //test will not run properly if checking for default option
                 // if (movieSelection.value === "default") {
                 //     //remove/reset 
@@ -34,7 +33,7 @@ fetch(BASE_URL)
 
                     //remove/reset
                     document.querySelector("#display-info").classList.remove("hidden")
-                    document.querySelector("form p").classList.remove("error")
+                    document.querySelector("#default-info p").classList.remove("error")
                     document.querySelector("#default-info").classList.add("hidden")
 
     
@@ -54,38 +53,35 @@ fetch(BASE_URL)
                     }
             })
         })
-    })
-
-// document.querySelector("form").addEventListener("submit", (event) => {
-//     event.preventDefault();
-    
-//     const input = event.target["movie-review"].value
-
-//     //remove/reset old things 
-//     document.querySelector("form p").classList.remove("error")
-//     document.querySelector("#default-reviews p").classList.remove("error")
-
-//     if (!document.querySelector("#display-info h3")) {
-//         document.querySelector("#default-info").classList.remove("hidden")
-//     }
-
-//     if (movieSelection.value === "default") {
-//         document.querySelector("form p").classList.add("error")
-//     } else if (!input) {
-//         document.querySelector("#default-reviews p").classList.add("error")
-//     } else {
-//         //reset/remove old things 
-//         document.querySelector("form p").classList.remove("error")
-//         document.querySelector("#default-reviews p").classList.remove("error")
+        //Add event when submitting a review  
+        document.querySelector("form").addEventListener("submit", (event) => {
+            event.preventDefault();
+            
+            const input = event.target["movie-review"].value
         
-//         fetch(BASE_URL) 
-//             .then((response) => response.json())
-//             .then((movies) => {
+            //remove/reset old things 
+            document.querySelector("#default-info p").classList.remove("error")
+            document.querySelector("#default-reviews p").classList.remove("error")
+        
+            // if (!document.querySelector("#display-info h3")) {
+            //     document.querySelector("#default-info").classList.remove("hidden")
+            // }
+        
+            if (!input) {
+                document.querySelector("#default-reviews p").classList.add("error")
+            } else {
+                //reset/remove old things 
+                document.querySelector("#default-info p").classList.remove("error")
+                document.querySelector("#default-reviews p").classList.remove("error")
+                document.querySelector("#default-reviews p").classList.add("hidden")
 
-//             })
-//     }
-    
-//     //reset twice to reset both dropdown and text input 
-//     // event.target.reset();
-//     // event.target.reset();
-// })
+                const newReview = document.createElement("li")
+                newReview.innerHTML = `<strong>${document.querySelector("#display-info h3").textContent}:</strong> ${input}` 
+                document.querySelector("ul").append(newReview)
+                
+            }
+            // reset twice to reset both dropdown and text input 
+            event.target.reset();
+            event.target.reset();
+        })
+    })

@@ -14,19 +14,15 @@
         <h1>Ghibli Review App</h1>
         <img src="./images/ghibli-logo.png" alt="studio ghibli logo"/>
     </header>
+    <select id="movie-selection">
+    </select>
+    <section id="default-info">
+        <h3>Movie Description</h3>
+        <p>Select a movie to view description</p>
+    </section>
+    <section id="display-info">
+    </section>
     <form>
-        <label> 
-            <select id="movie-selection">
-                <option value="default">-------Select a Movie-------</option>
-            </select>
-        </label>
-        <section id="default-info">
-            <h3>Movie Description</h3>
-            <p>Select a movie to view description</p>
-        </section>
-        <section id="display-info">
-
-        </section>
         <label>
             How was the movie?
             <input type="text" name="movie-review" id="movie-review" placeholder="Write your review here..."/>
@@ -37,7 +33,7 @@
         <h3>Ghibli Studio Reviews</h3>
         <p>No reviews have been added</p>
     </section>
-    <section id="list-reviews">
+    <section id="display-reviews">
         <ul>
 
         </ul>
