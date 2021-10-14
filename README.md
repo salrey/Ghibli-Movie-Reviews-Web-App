@@ -2,6 +2,8 @@
 
 This challenge is designed to assess the HTML, CSS, and JavaScript skills you have gained so far.
 
+You can see [my deployed solution here](https://ghiblireviews.surge.sh/).
+
 ## Assessment Setup
 
 ### Getting started
