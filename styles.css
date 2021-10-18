@@ -6,22 +6,32 @@ body {
 }
 
 header {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     background-color: skyblue;
     text-align: right;
 }
 
+img {
+    grid-column: 1fr;
+    width: 100%;
+}
+
 header h1 {
-    padding-top: 20px;
+    grid-column: 1fr;
+    padding-top: 10px;
     padding-right: 100px; 
 }
 
-img {
-    display: flex;  
-    width: 50%;
+#default-info, 
+#display-info {
+    margin-left: 40px;
 }
 
-select {
-    margin-top: 20px;
+
+
+li {
+    list-style-type: "🖍 ";
 }
 
 footer {

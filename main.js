@@ -1,44 +1,45 @@
 const BASE_URL = "https://ghibliapi.herokuapp.com/films/" 
+
 const movieSelection = document.querySelector("#movie-selection")
+const defaultInfo = document.querySelector("#default-info")
+const displayInfo = document.querySelector("#display-info")
+const defaultReviews = document.querySelector("#default-reviews")
+const displayReviews = document.querySelector("#display-reviews")
 
 fetch(BASE_URL)
     .then((response) => response.json())
     .then((movies) => {
-        //check data
-        // console.log(data[0])
+
+        //create dropdown menu
         movies.forEach((movie) => {
             const option = document.createElement("option");
             option.value = movie.title
-            //check option.value is formatted correctly
-            // console.log(option.value) 
             option.textContent = movie.title
             movieSelection.append(option)
 
-        })
-        //Add event when an option is selected 
-        movieSelection.addEventListener("change", (event) => {
+            //set defaultInfo to first option
+            if (movieSelection.value === movie.title) {
+                const [h4, div, p] = defaultInfo.children
+                h4.textContent = movie.title
+                div.textContent = movie.release_date
+                p.textContent = movie.description
+            }
 
-            //remove/reset
-            document.querySelector("#display-info").classList.remove("hidden")
-            document.querySelector("#default-info p").classList.remove("error")
-            document.querySelector("#default-info").classList.add("hidden")
+        })    
 
+        //Add event when selection is changed 
+        movieSelection.addEventListener("change", () => {
+
+            //Switch to displayInfo
+            defaultInfo.classList.add("hidden")  
+            displayInfo.classList.remove("hidden")  
+            
             movies.forEach((movie) => {
-                if (event.target.value === movie.title) {
-                    if (!document.querySelector("#display-info h3")) {
-                        let movieHeader = document.createElement("h3")
-                        movieHeader.textContent = movie.title
-                        let movieYear = document.createElement("div")
-                        movieYear.textContent = movie.release_date
-                        let movieDescription = document.createElement("p")
-                        movieDescription.textContent = movie.description
-                        //Manipulate DOM
-                        document.querySelector("#display-info").append(movieHeader, movieYear, movieDescription)
-                    } else {
-                        document.querySelector("#display-info h3").textContent = movie.title 
-                        document.querySelector("#display-info div").textContent = movie.release_date 
-                        document.querySelector("#display-info p").textContent = movie.description 
-                    }
+                if (movieSelection.value === movie.title) {
+                    const [h4, div, p] = displayInfo.children
+                    h4.textContent = movie.title
+                    div.textContent = movie.release_date
+                    p.textContent = movie.description
                 }
             })
         })
@@ -46,28 +47,52 @@ fetch(BASE_URL)
         //Add event when submitting a review  
         document.querySelector("form").addEventListener("submit", (event) => {
             event.preventDefault();
+
+            //reset to displayInfo
+            defaultInfo.classList.remove("hidden")  
+            displayInfo.classList.add("hidden") 
             
             const input = event.target["movie-review"].value
-        
-            //remove/reset old things 
-            document.querySelector("#default-info p").classList.remove("error")
-            document.querySelector("#default-reviews p").classList.remove("error")
-            document.querySelector("#display-info").classList.add("hidden")
-            document.querySelector("#default-info").classList.remove("hidden")
-        
-            if (!input) {
-                document.querySelector("#default-reviews p").classList.add("error")
-            } else {
-                //reset/remove old things 
-                document.querySelector("#default-info p").classList.remove("error")
-                document.querySelector("#default-reviews p").classList.remove("error")
-                document.querySelector("#default-reviews p").classList.add("hidden")
 
+            if (!input) {
+                defaultReviews.children[0].classList.add("error")
+                defaultReviews.children[0].classList.remove("hidden")  
+            } 
+
+            let isDuplicate = false
+            document.querySelectorAll("#display-reviews li").forEach((list) => {
+                if (list.textContent.includes(movieSelection.value)) {
+                    defaultReviews.children[0].classList.add("error")
+                    defaultReviews.children[0].classList.remove("hidden")
+                    isDuplicate = true
+                } 
+            })
+            
+            //Add new review
+            if (input && !isDuplicate) {
+
+                defaultReviews.children[0].classList.add("hidden")
+                defaultReviews.children[0].classList.remove("error")
+            
                 const newReview = document.createElement("li")
-                newReview.innerHTML = `<strong>${document.querySelector("#display-info h3").textContent}:</strong> ${input}` 
-                document.querySelector("ul").append(newReview)
-                
+                const strongTitle = document.createElement("strong")
+                newReview.textContent = input
+                strongTitle.textContent = `${movieSelection.value}: `
+
+                newReview.prepend(strongTitle) 
+                displayReviews.children[0].append(newReview)
             }
+
+            //Add event to remove review
+            document.querySelectorAll("li").forEach((list) => {
+                list.addEventListener("click", () => {
+                    list.remove();
+                    if (document.querySelectorAll("li").length === 0) {
+                        defaultReviews.children[0].classList.remove("hidden")
+                    } 
+                })
+            })
+
             // reset twice to reset both dropdown and text input 
             event.target.reset();
             event.target.reset();
